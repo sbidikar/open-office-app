@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import List from './components/List';
 import withListLoading from './components/withListLoading';
+import Search from './components/Search/Search';
 function App() {
   const ListLoading = withListLoading(List);
+  const SearchLoading = withListLoading(Search);
+
   const [appState, setAppState] = useState({
     loading: false,
     repos: null,
@@ -24,7 +27,8 @@ function App() {
         <h1>Open Office</h1>
       </div>
       <div className='repo-container'>
-        <ListLoading isLoading={appState.loading} repos={appState.repos} />
+        <SearchLoading isLoading={appState.loading} repos={appState.repos}/>
+        {/* <ListLoading isLoading={appState.loading} repos={appState.repos} /> */}
       </div>
     </div>
   );
