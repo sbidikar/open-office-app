@@ -3,8 +3,9 @@ import './App.css';
 import List from './components/List';
 import withListLoading from './components/withListLoading';
 import Search from './components/Search/Search';
+import OpenOfficeApp from './components/OpenOfficeApp';
 function App() {
-  const ListLoading = withListLoading(List);
+  /*const ListLoading = withListLoading(List);
   const SearchLoading = withListLoading(Search);
 
   const [appState, setAppState] = useState({
@@ -20,14 +21,15 @@ function App() {
       .then((repos) => {
         setAppState({ loading: false, repos: repos });
       });
-  }, [setAppState]);
+  }, [setAppState]);*/
   return (
     <div className='App'>
       <div className='container'>
         <h1>Open Office</h1>
       </div>
       <div className='repo-container'>
-        <SearchLoading isLoading={appState.loading} repos={appState.repos}/>
+        <OpenOfficeApp/>
+        {/*<SearchLoading isLoading={appState.loading} repos={appState.repos}/>*/}
         {/* <ListLoading isLoading={appState.loading} repos={appState.repos} /> */}
       </div>
     </div>
