@@ -4,6 +4,7 @@ import LoginComponent from './LoginComponent';
 import AuthenticationService from '../service/AuthenticationService';
 import AuthenticatedRoute from './AuthenticatedRoute';
 import ListDeskComponent from './ListDeskComponent';
+import Equipments from './Equipments';
 class OpenOfficeApp extends Component {
 
 
@@ -16,6 +17,7 @@ class OpenOfficeApp extends Component {
                             <Route path="/" exact component={LoginComponent} />
                             <Route path="/login" exact component={LoginComponent} />
                             <AuthenticatedRoute path="/search" exact component={ListDeskComponent} />
+                            <Route path="/equipments" exact component={Equipments} />
                         </Switch>
                     </>
                 </Router>
