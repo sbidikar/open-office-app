@@ -1,6 +1,7 @@
 /* *{background: aliceblue; }*/
 div{
     display:inline;
+    align-content: center;
     width: fit-content;
     margin: 5px;
 }
@@ -12,7 +13,7 @@ input{
     box-shadow: 2px 2px 5px 2px #ccc;
 }
 
-button{
+button , Link{
     background-color: blue;
     border: none;
     color: white;
@@ -36,13 +37,15 @@ table{
     border: 1px solid black;
     display:inline-block;
     width:100%;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
 }
 thead{
     margin:0;
 
 }
 .results{
-
     align-content: center;
     text-align: center;
     display: inline-block;

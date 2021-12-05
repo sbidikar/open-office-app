@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import React, { Component } from 'react'
 import OpenOfficeDataService from "../service/OpenOfficeDataService";
 
