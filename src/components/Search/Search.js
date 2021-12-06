@@ -31,35 +31,45 @@ import OpenOfficeDataService from '../../service/OpenOfficeDataService';
     // const repos;
     // console.log(JSON.stringify(repos));
     // if (!repos || repos.length === 0) return <p>No repos, sorry</p>;
-  
+  // 
 class Search extends Component {
+// const Search = () => {
+  // const [location, building, floor, reserveDate] = useState('');
+  // const [setLocation, setBuilding,setFloor, setReserveDate] = useState('');
 
   constructor(props){
     super(props);
      this.state={
        openOffice: [],
-       userid: '',
-       username: '',
-      useremail: '',
+      //  userid: this.user.userid,
+      //  username: '',
+      // useremail: '',
       location: '',
       building: '',
       floor: '',
-      desk: ''}
+      desk: ''
+    }
       this.handleSubmit = this.handleSubmit.bind(this);
-      // this.handleSearch = this.handleSearch.bind(this);
+      this.handleSearch = this.handleSearch.bind(this);
 
      }
   
-     componentDidMount(){
-       this.handleSubmit();
-     }
+    //  componentDidMount(){
+    //    this.handleSubmit();
+    //  }
 
     //  newDesk(){
 
     //  }
 
-      handleSearch = (event) =>{
-       this.setState({location:event.target.value,building:event.target.value,floor:event.target.value});
+    //  const  
+    //  handleSearch = (event) =>{
+      handleSearch(event){
+      //  this.setState({location:event.target.value, building:event.target.value, floor:event.target.value, reserveDate: event.target.value});
+      this.setState({
+      [event.target.name]
+            : event.target.value
+    });
       // setSearch(event.target.value);
     //  const searchTerm = event.target.value;
     //  setSearch(searchTerm); 
@@ -67,20 +77,22 @@ class Search extends Component {
     //     return repo.building.includes(searchTerm.toLowerCase());
   };
 
- handleSubmit = () =>{
-  // event.preventDefault();
-  const openOffices ={
+//  const 
+//  handleSubmit = (event) =>{
+  handleSubmit(event){
+  event.preventDefault();
+  const openOffice ={
     params:  {
-      // userDetail: {
-        userId: "",
-        userName: "",
-        userEmail: ""
-      // },
-      ,
-      location: "",
-      building: "",
-      floor: "",
-      reserveDate: ""
+  //     // // userDetail: {
+  //     //   userId: "",
+  //     //   userName: "",
+  //     //   userEmail: ""
+  //     // // },
+  //     // ,
+      location:this.state.location,
+      building:this.state.building,
+      floor:this.state.floor,
+      reserveDate:this.state.reserveDate
     }
   }
 
@@ -90,10 +102,42 @@ class Search extends Component {
     // desk: this.desk;
   
   axios.post(
-    `http://localhost:8080/openofficeapi/search`, {openOffices})
+    `http://localhost:8080/openofficeapi/search` ,{
+      openOffice
+  //     headers: {
+  //     'Content-Type': 'application/json',
+  //     'Authorization': 'JWT fefege...'
+  // } ,  
+  
+  // data: {
+  //   location:this.state.location,
+  //   building:this.state.building,
+  //   floor:this.state.floor,
+  //   reserveDate:this.state.reserveDate
+  // }
+
+  }
+
+
+    )
+
+    // const data = {location, building, floor, reserveDate}
+    // fetch('http://localhost:8080/openofficeapi/search',{
+    //     method: 'POST',
+    //     headers: {"Content-Type": "application/json"},
+    //     body: JSON.stringify(data)
+    // })
+
+
   // `http://localhost:8080/openofficeapi/search?location=${location}&building=${building}&floor=${floor}&desk=${desk}`  
   // )
-  // {
+  //  {params:
+  //    { 
+  //   location: "",
+  //   building: "",
+  //   floor: "",
+  //   reserveDate: ""
+  // }})
   //   userDetail: {
   //     userId: "123456",
   //     userName: "Siddharth",
@@ -111,7 +155,9 @@ class Search extends Component {
           // res.json(
             console.log(res);
             console.log(res.data);
-            this.setState({openOffice: res.data})
+
+            this.setState({openOffice: res.data});
+            // console.log(openOffice);
         })
 
 };
@@ -133,6 +179,7 @@ class Search extends Component {
 //   console.log(JSON.stringify(repos));
 //   if (!repos || repos.length === 0) return <p>No repos, sorry</p>;}
  
+// const 
 book = () =>{
   <Redirect to="/confirm" />
 }
@@ -142,26 +189,34 @@ book = () =>{
   render() {
   return (
   <div>
-    <form onSubmit= {this.handleSubmit}>
+    <form onSubmit= {(event)=>this.handleSubmit(event)}>
       <h2 className='list-head'>Search for an Open Office...</h2>
       <div>
       <label>Location: </label>
-      <input type="text" />
+      {/* <select value={location} onChange={this.handleSearch}> */}
+      {/* <option>Charlotte</option> */}
+      {/* </select> */}
+      <input type="text" onChange={this.handleSearch}/>
+      {/* (e) => setName(e.target.value) */}
       </div>
       <div>
       <label>Building: </label>
-      <input type="text" />
+      {/* <select value={building} onChange={this.handleSearch}> */}
+      {/* <option>Charlotte</option> */}
+      {/* </select> */}
+      <input type="text"onChange={this.handleSearch} />
       {/* <input type="text" onChange={(event) =>handleSearch(event)} /> */}
       </div>
       <div>
       <label>Floor: </label>
-      <input type="text" />
+      <input type="text" onChange={this.handleSearch}/>
       </div>
       <div>
       <label>Date: </label>
-      <input type="date" onClick={this.handleSearch} />
+      <input type="date" onChange={this.handleSearch} />
+      {/* onClick={this.handleSearch} */}
       </div>
-      <button type= "submit" formMethod = "GET" formAction="" onClick={this.handleSubmit}> FindAll </button>
+      <button type= "submit" formMethod = "POST" formAction="" onSubmit={(event) => this.handleSubmit(event)}> FindAll </button>
       </form>
      {/* <button> { showResults ? <Results /> : null }</button> */}
      <div class="results">
