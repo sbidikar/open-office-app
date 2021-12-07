@@ -26,13 +26,12 @@ const Bookings = () =>  {
         //   }
           console.log(data)
           })
-
-        fetch('http://localhost:8080/openofficeapi/save',{
-            method: 'POST',
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(data)
-
-        }).then((data) => {
+axios.post('http://localhost:8080/openofficeapi/search/findByReservedDate',data)
+        // fetch('http://localhost:8080/openofficeapi/search/findByReservedDate',{
+        //     method: 'POST',
+        //     headers: {"Content-Type": "application/json"},
+        //     body: JSON.stringify(data)})
+        .then((data) => {
             console.log("Bookings found")
             this.setState({bookings:data.data})
         })
@@ -60,6 +59,7 @@ return(
     <form onSubmit={onSubmit}>
       <label>Date: </label>
       <input type="date" onChange={(event)=>setReservedDate(event.target.value) } />
+      <button type= "submit" onSubmit={onSubmit}> Find Bookings </button>
       </form>
 <div>
     <table>

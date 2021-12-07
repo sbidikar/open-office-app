@@ -23,6 +23,15 @@ const popupCloseHandler = (e) => {
   setVisibility(e);
 };
 
+const Results = () => {
+  <div id="results" className="results">
+  </div>
+}
+
+
+const [showResults, setShowResults] = React.useState(false)
+  const show = () => setShowResults(true)
+
 
 
  const handleSubmit = (event) =>{
@@ -97,9 +106,10 @@ setVisibility(!visibility)
       <label>Date: </label>
       <input type="date" onChange={(event)=>setReserveDate(event.target.value)} />
       </div>
-      <button type= "submit" onSubmit={handleSubmit}> FindAll </button>
+      <button type= "submit" onClick={show} onSubmit={handleSubmit}> FindAll </button>
       </form>
       </div>
+      { showResults ?
      <div className="results">
        
 <table> 
@@ -140,6 +150,7 @@ setVisibility(!visibility)
   </tbody>
         </table>
         </div>
+        : null }
         <div>
         <Popup onClose={popupCloseHandler} show={visibility}>
         <Confirm book={bookData}/>
