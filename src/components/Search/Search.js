@@ -6,6 +6,7 @@ import Button from '../Button'
 import axios from 'axios';
 // import BookContext from '../Book';
 import Confirm from '../Confirm';
+import Popup from '../Popup';
 
 const Search = () => {
   const [location, setLocation] = useState('');
@@ -14,6 +15,14 @@ const Search = () => {
   const [reserveDate, setReserveDate] = useState('');
 const [openOffice, setOpenOffice] = useState([]);
 const [bookData, setBookData] = useState([]);
+
+
+const [visibility, setVisibility] = useState(false);
+
+const popupCloseHandler = (e) => {
+  setVisibility(e);
+};
+
 
 
  const handleSubmit = (event) =>{
@@ -59,7 +68,7 @@ const [bookData, setBookData] = useState([]);
   // else{
    event.reserveDate = reserveDate;
 //  }
-
+setVisibility(!visibility)
    
 }
  
@@ -68,28 +77,29 @@ const [bookData, setBookData] = useState([]);
   // render(){
   return (
   <div>
-
+    <div className="searchForm">
     <form onSubmit= {handleSubmit}>
       <h2 className="list-head">Search for an Open Office...</h2>
-      <div>
+      <div className="searchForm">
       <label>Location: </label>
       <input type="text"  value= {location} onChange={event => setLocation(event.target.value)}/>
       </div>
-      <div>
+      <div className="searchForm">
       <label>Building: </label>
 
       <input type="text" value= {building} onChange={(event)=>setBuilding(event.target.value)} />
       </div>
-      <div>
+      <div className="searchForm">
       <label>Floor: </label>
       <input type="text" value={floor} onChange={(event)=> setFloor(event.target.value)}/>
       </div>
-      <div>
+      <div className="searchForm">
       <label>Date: </label>
       <input type="date" onChange={(event)=>setReserveDate(event.target.value)} />
       </div>
       <button type= "submit" onSubmit={handleSubmit}> FindAll </button>
       </form>
+      </div>
      <div className="results">
        
 <table> 
@@ -131,7 +141,9 @@ const [bookData, setBookData] = useState([]);
         </table>
         </div>
         <div>
+        <Popup onClose={popupCloseHandler} show={visibility}>
         <Confirm book={bookData}/>
+        </Popup>
         </div>
         </div>
   
