@@ -1,143 +1,32 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, Component } from 'react';
-import { Route, Redirect, Link } from 'react-router-dom'
-import './style.css';
-// import Table from 'react-bootstrap/Table'
-// import { Table, Input } from 'antd';
+import React, { useState, createContext } from 'react';
+import {Redirect, Link } from 'react-router-dom'
+import './style.css'
+import Button from '../Button'
 import axios from 'axios';
-// import { userColumns } from './columns';
-// import { useTableSearch } from './useTableSearch';
-// const { Search } = Input
-import OpenOfficeDataService from '../../service/OpenOfficeDataService';
+// import BookContext from '../Book';
+import Confirm from '../Confirm';
 
-// Search = query => {
-//     const url = `http://localhost:8080/openofficeapi/search=${query}`;
-//     const token = {};
-//     this.token = token;
+const Search = () => {
+  const [location, setLocation] = useState('');
+  const [building, setBuilding,] = useState('');
+  const [floor, setFloor] = useState('');
+  const [reserveDate, setReserveDate] = useState('');
+const [openOffice, setOpenOffice] = useState([]);
+const [bookData, setBookData] = useState([]);
 
-//     fetch(url)
-//       .then(results => results.json())
-//       .then(data => {
-//         if (this.token === token) {
-//           this.setState({ building: data.results });
-//         }
-//       });
-//   };
 
-//   componentDidMount() {
-//     this.Search("");
-//   }
-
-    // const repos;
-    // console.log(JSON.stringify(repos));
-    // if (!repos || repos.length === 0) return <p>No repos, sorry</p>;
-  // 
-class Search extends Component {
-// const Search = () => {
-  // const [location, building, floor, reserveDate] = useState('');
-  // const [setLocation, setBuilding,setFloor, setReserveDate] = useState('');
-
-  constructor(props){
-    super(props);
-     this.state={
-       openOffice: [],
-      //  userid: this.user.userid,
-      //  username: '',
-      // useremail: '',
-      location: '',
-      building: '',
-      floor: '',
-      desk: ''
-    }
-      this.handleSubmit = this.handleSubmit.bind(this);
-      this.handleSearch = this.handleSearch.bind(this);
-
-     }
-  
-    //  componentDidMount(){
-    //    this.handleSubmit();
-    //  }
-
-    //  newDesk(){
-
-    //  }
-
-    //  const  
-    //  handleSearch = (event) =>{
-      handleSearch(event){
-      //  this.setState({location:event.target.value, building:event.target.value, floor:event.target.value, reserveDate: event.target.value});
-      this.setState({
-      [event.target.name]
-            : event.target.value
-    });
-      // setSearch(event.target.value);
-    //  const searchTerm = event.target.value;
-    //  setSearch(searchTerm); 
-    //  const newFilter = repos.filter((repo)=>{
-    //     return repo.building.includes(searchTerm.toLowerCase());
-  };
-
-//  const 
-//  handleSubmit = (event) =>{
-  handleSubmit(event){
+ const handleSubmit = (event) =>{
   event.preventDefault();
-  const openOffice ={
-    params:  {
-  //     // // userDetail: {
-  //     //   userId: "",
-  //     //   userName: "",
-  //     //   userEmail: ""
-  //     // // },
-  //     // ,
-      location:this.state.location,
-      building:this.state.building,
-      floor:this.state.floor,
-      reserveDate:this.state.reserveDate
+    const desk = {location, building, floor, reserveDate}
+    Object.keys(desk).forEach((key) => {
+      if(!desk[key]) delete desk[key];
+      if(desk.reserveDate === ""){
+        setReserveDate(reserveDate);
     }
-  }
-
-    // location: this.location,
-    // building: this.building;
-    // floor: this.floor;
-    // desk: this.desk;
-  
-  axios.post(
-    `http://localhost:8080/openofficeapi/search` ,{
-      openOffice
-  //     headers: {
-  //     'Content-Type': 'application/json',
-  //     'Authorization': 'JWT fefege...'
-  // } ,  
-  
-  // data: {
-  //   location:this.state.location,
-  //   building:this.state.building,
-  //   floor:this.state.floor,
-  //   reserveDate:this.state.reserveDate
-  // }
-
-  }
-
-
-    )
-
-    // const data = {location, building, floor, reserveDate}
-    // fetch('http://localhost:8080/openofficeapi/search',{
-    //     method: 'POST',
-    //     headers: {"Content-Type": "application/json"},
-    //     body: JSON.stringify(data)
-    // })
-
-
-  // `http://localhost:8080/openofficeapi/search?location=${location}&building=${building}&floor=${floor}&desk=${desk}`  
-  // )
-  //  {params:
-  //    { 
-  //   location: "",
-  //   building: "",
-  //   floor: "",
-  //   reserveDate: ""
-  // }})
+    console.log(reserveDate)
+    })
+    axios.post('http://localhost:8080/openofficeapi/search', desk)
   //   userDetail: {
   //     userId: "123456",
   //     userName: "Siddharth",
@@ -149,78 +38,61 @@ class Search extends Component {
   //   reserveDate: "2021-12-03"
   // }
   // )
-  // OpenOfficeDataService.findDesk(this.state.userid,this.state.username,this.useremail,this.state.location,this.state.building,this.state.floor,this.state.reserveDate)
   .then(res => {
-          // const
-          // res.json(
             console.log(res);
+            console.log(desk);
             console.log(res.data);
-
-            this.setState({openOffice: res.data});
-            // console.log(openOffice);
+              setOpenOffice(res.data);
         })
 
-};
+      }
+ const book = (event) =>{
+   setBookData(event)
+   console.log(bookData)
+   console.log(reserveDate)
+  //  if(!!event.reserveDate || event.reserveDate === ""){
+  //    const nDate = new Date();
+  //    setReserveDate(nDate)
+  // //    event.reserveDate = new Date();
+  // event.reserveDate = reserveDate;
+  //   }
+  // else{
+   event.reserveDate = reserveDate;
+//  }
 
-    // const { repos } = props;
-    // console.log(JSON.stringify(repos));
-    // if (!repos || repos.length === 0) return <p>No repos, sorry</p>;
-  // 
-// }
-// const Search = (props) => {
-//   const [showResults, setShowResults] = React.useState(false)
-//   const show = () => setShowResults(true)
-//     const handleSearch = (event) =>{
-//     }
-
-//  Repos = (props) => {
-
-//   const { repos } = props;
-//   console.log(JSON.stringify(repos));
-//   if (!repos || repos.length === 0) return <p>No repos, sorry</p>;}
- 
-// const 
-book = () =>{
-  <Redirect to="/confirm" />
+   
 }
+ 
+ 
 
-
-
-  render() {
+  // render(){
   return (
   <div>
-    <form onSubmit= {(event)=>this.handleSubmit(event)}>
-      <h2 className='list-head'>Search for an Open Office...</h2>
+
+    <form onSubmit= {handleSubmit}>
+      <h2 className="list-head">Search for an Open Office...</h2>
       <div>
       <label>Location: </label>
-      {/* <select value={location} onChange={this.handleSearch}> */}
-      {/* <option>Charlotte</option> */}
-      {/* </select> */}
-      <input type="text" onChange={this.handleSearch}/>
-      {/* (e) => setName(e.target.value) */}
+      <input type="text"  value= {location} onChange={event => setLocation(event.target.value)}/>
       </div>
       <div>
       <label>Building: </label>
-      {/* <select value={building} onChange={this.handleSearch}> */}
-      {/* <option>Charlotte</option> */}
-      {/* </select> */}
-      <input type="text"onChange={this.handleSearch} />
-      {/* <input type="text" onChange={(event) =>handleSearch(event)} /> */}
+
+      <input type="text" value= {building} onChange={(event)=>setBuilding(event.target.value)} />
       </div>
       <div>
       <label>Floor: </label>
-      <input type="text" onChange={this.handleSearch}/>
+      <input type="text" value={floor} onChange={(event)=> setFloor(event.target.value)}/>
       </div>
       <div>
       <label>Date: </label>
-      <input type="date" onChange={this.handleSearch} />
-      {/* onClick={this.handleSearch} */}
+      <input type="date" onChange={(event)=>setReserveDate(event.target.value)} />
       </div>
-      <button type= "submit" formMethod = "POST" formAction="" onSubmit={(event) => this.handleSubmit(event)}> FindAll </button>
+      <button type= "submit" onSubmit={handleSubmit}> FindAll </button>
       </form>
-     {/* <button> { showResults ? <Results /> : null }</button> */}
-     <div class="results">
-<table responsive striped> 
+     <div className="results">
+       
+<table> 
         <thead>
           <tr>
             <th>Location</th>
@@ -228,64 +100,43 @@ book = () =>{
             <th>Floor</th>
             <th>Desk</th>
             <th></th>
+            {/* <th>Reservation Date</th> */}
           </tr>
         </thead>
         <tbody>
-      {this.state.openOffice.map((repo) => {
+       
+      {openOffice.map((repo) => {
         return (
-    <tr>
+       
+    <tr key={repo.id}>
       <td> {repo.location}</td>
       <td>{repo.building}</td>
       <td>{repo.floor}</td>
       <td>{repo.desk}</td>
-      <td> 
-       
-        <button type="button"><Link to="/confirm">Reserve</Link></button>
-      
+      {/* <td>{repo.reserveDate}</td> */}
+      <td>
+      {/* <BookContext.Provider value={book}> */}
+        <Button type="submit" onClick={(event)=>book(repo)}>Reserve</Button>
+        {/* (event)=>setBookData(openOffice.map(repo.id)) */}
+        {/* </BookContext.Provider> */}
       </td>
     </tr>
+
+
       );
-    })}
+    })
+    }
+
   </tbody>
         </table>
+        </div>
+        <div>
+        <Confirm book={bookData}/>
         </div>
         </div>
   
   
     );
   };
-};
-
-
-  //click show?
-//   const Results = () => (
-//   <div class="results" onClick={show}>
-
-// <table responsive striped> 
-//         <thead>
-//           <tr>
-//             <th>Location</th>
-//             <th>Building</th>
-//             <th>Floor</th>
-//             <th>Desk</th>
-//             <th></th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//       {repos.map((repo) => {
-//         return (
-//     <tr>
-//       <td> {repo.location}</td>
-//       <td>{repo.building}</td>
-//       <td>{repo.floor}</td>
-//       <td>{repo.desk}</td>
-//       <td><button>Reserve</button></td>
-//     </tr>
-//       );
-//     })}
-//   </tbody>
-//         </table>
-//         </div>
-// );
 
 export default Search;

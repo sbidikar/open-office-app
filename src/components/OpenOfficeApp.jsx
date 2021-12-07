@@ -23,7 +23,7 @@ class OpenOfficeApp extends Component {
                             <Route path="/login" exact component={LoginComponent} />
                             <AuthenticatedRoute path="/search" exact component={Search} />
                             <Route path="/equipments" exact component={Equipments} />
-                            <Route path="/confirm" exact component={Confirm} />
+                            {/* <Route path="/confirm" exact component={Confirm} /> */}
                             <Route path="/bookings" exact component={Bookings} />
                             {/* <AuthenticatedRoute path="/search" exact component={ListDeskComponent} /> */}
                         </Switch>
