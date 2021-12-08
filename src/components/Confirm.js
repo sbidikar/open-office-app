@@ -15,6 +15,7 @@ const [desk, setDesk] = useState([])
 const handleBooking= (event)=>{
     event.preventDefault();
     const booking = {floorMapId,reservedDate}
+    
     Object.keys(booking).forEach((key) => {
         if(booking.reservedDate === ""){
             setReservedDate(new Date())
@@ -51,8 +52,6 @@ const handleBooking= (event)=>{
 }
 
 
-
-// render(){
 return( 
 <div>
 <table className="table">
@@ -69,12 +68,6 @@ return(
                         <tbody>
 
                         <tr key ={book.id}>
-                                            {/* <td>Charlotte</td>
-                                            <td>Building A</td>
-                                            <td>2</td>
-                                            <td>2001</td>
-                                            <td>12-03-2021</td> */}
-                                            {/* <td>{book}</td> */}
                                             <td>{book.location}</td> 
                                             <td>{book.building}</td> 
                                             <td>{book.floor}</td> 
@@ -96,6 +89,5 @@ return(
 )
 
 }
-// }
 
 export default Confirm;

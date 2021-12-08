@@ -10,7 +10,7 @@ import Popup from '../Popup';
 
 const Search = () => {
   const [location, setLocation] = useState('');
-  const [building, setBuilding,] = useState('');
+  const [building, setBuilding] = useState('');
   const [floor, setFloor] = useState('');
   const [reserveDate, setReserveDate] = useState('');
 const [openOffice, setOpenOffice] = useState([]);
@@ -22,11 +22,6 @@ const [visibility, setVisibility] = useState(false);
 const popupCloseHandler = (e) => {
   setVisibility(e);
 };
-
-const Results = () => {
-  <div id="results" className="results">
-  </div>
-}
 
 
 const [showResults, setShowResults] = React.useState(false)
@@ -91,16 +86,15 @@ setVisibility(!visibility)
       <h2 className="list-head">Search for an Open Office...</h2>
       <div className="searchForm">
       <label>Location: </label>
-      <input type="text"  value= {location} onChange={event => setLocation(event.target.value)}/>
+      <input type="text" value={location} onChange={(event)=> setLocation(event.target.value)}/>
       </div>
       <div className="searchForm">
       <label>Building: </label>
-
-      <input type="text" value= {building} onChange={(event)=>setBuilding(event.target.value)} />
+      <input type="text" value={building} onChange={(event)=>setBuilding(event.target.value)} />
       </div>
       <div className="searchForm">
       <label>Floor: </label>
-      <input type="text" value={floor} onChange={(event)=> setFloor(event.target.value)}/>
+      <input type="text" value={floor} onChange={(event)=>setFloor(event.target.value)}/>
       </div>
       <div className="searchForm">
       <label>Date: </label>
@@ -129,11 +123,10 @@ setVisibility(!visibility)
         return (
        
     <tr key={repo.id}>
-      <td> {repo.location}</td>
+      <td>{repo.location}</td>
       <td>{repo.building}</td>
       <td>{repo.floor}</td>
       <td>{repo.desk}</td>
-      {/* <td>{repo.reserveDate}</td> */}
       <td>
       {/* <BookContext.Provider value={book}> */}
         <Button type="submit" onClick={(event)=>book(repo)}>Reserve</Button>
@@ -152,7 +145,7 @@ setVisibility(!visibility)
         </div>
         : null }
         <div>
-        <Popup onClose={popupCloseHandler} show={visibility}>
+        <Popup title={"Current Booking"} onClose={popupCloseHandler} show={visibility}>
         <Confirm book={bookData}/>
         </Popup>
         </div>
