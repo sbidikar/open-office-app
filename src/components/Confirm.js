@@ -84,7 +84,7 @@ return(
 
                         </tbody>
                     </table>
-<button onClick={handleBooking}>Book</button> 
+<button onClick={handleBooking}><Link className="links" to="/bookings" >Book</Link></button> 
 <button ><Link className="links" to="/equipments" >Need Equipment?</Link></button>
 <button><Link className="links" to="/search" >Cancel</Link></button>
 </div>

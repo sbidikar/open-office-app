@@ -26,7 +26,7 @@ const Bookings = () =>  {
         //   }
           console.log(data)
           })
-axios.post('http://localhost:8080/openofficeapi/search/findByReservedDate',data)
+axios.post('http://localhost:8080/openofficeapi/searchForDate',data)
         // fetch('http://localhost:8080/openofficeapi/search/findByReservedDate',{
         //     method: 'POST',
         //     headers: {"Content-Type": "application/json"},
@@ -37,19 +37,6 @@ axios.post('http://localhost:8080/openofficeapi/search/findByReservedDate',data)
         })
         console.log(data)
     }
-
-
-
-
-// }
-//  handleBooking =() =>{
-//     // const response =  makeBooking();
-//     // if (response){
-//     //     console.log(response);
-//     //     handleClose();
-//     }
-// }
-
 
 // render(){
 return( 
