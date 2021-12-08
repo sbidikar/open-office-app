@@ -5,20 +5,18 @@ import { useState } from 'react'
 const Equipments = () => {
     const [itemId, setItemId] = useState(Math.floor(Math.random() * 10000) + 1)
     const [name, setName] = useState('')
-    const [description, setDescription] = useState('')
+    const [purpose, setPurpose] = useState('')
     const [deskId, setDeskId] = useState('')
-    const onClick = () => {
-        console.log(this.name)
-        console.log(this.description)
-        console.log(this.deskId)
-    }
+    const [isPending, setIsPending] = useState(false)
+    const [message, setMessage] = useState('')
 
     const onSubmit = (e) => {
         e.preventDefault()
         if(!deskId){
             alert("Enter Desk Id")
         }
-        const data = {itemId,name,description,deskId}
+        setIsPending(true)
+        const data = {itemId,name,purpose,deskId}
         fetch('http://localhost:8080/openofficeapi/rent',{
             method: 'POST',
             headers: {"Content-Type": "application/json"},
@@ -26,13 +24,9 @@ const Equipments = () => {
 
         }).then(() => {
             console.log("Equipment request submitted")
+            setMessage('Equipment request submitted succussfully!!!')
+            setIsPending(false)
         })
-        console.log(data)
-    }
-
-    const addEquipment = async() => {
-        const res = await fetch('http://localhost:8080/openofficeapi/rent')
-        const data = await res.json()
         console.log(data)
     }
 
@@ -46,22 +40,24 @@ const Equipments = () => {
                         <option value="monitor">Monitor</option>
                         <option value="mouse">Mouse</option>
                         <option value="keyboard">Keyboard</option>
+                        <option value="dockstation">Dock Station</option>
                     </select>
                 </div>
                 <div>
-                    <label>Equipment Description: </label>
-                    <textarea type="text" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
+                    <label>Equipment Purpose: </label>
+                    <textarea type="text" value={purpose} onChange={(e) => setPurpose(e.target.value)}></textarea>
                 </div>
                 <div>
                     <label>Desk Id: </label>
                     <input type="text" value={deskId} onChange={(e) => setDeskId(e.target.value)}></input>
                 </div>
                 <div>
-                    <input type="submit" value="Order Equipment"></input>
+                    { !isPending && <button>Order Equipment</button>}
+                    { isPending && <button disabled>Requesting Equipment</button>}
                 </div>
-                <p>{name}</p>
             
             </form>
+            {message}
         </div>
     )
 }
